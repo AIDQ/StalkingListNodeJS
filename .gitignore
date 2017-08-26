@@ -57,5 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
-#IDEs
+# IDEs
 .vscode
+
+# Project specific
+/data/list.json
