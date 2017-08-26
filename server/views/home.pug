@@ -18,23 +18,24 @@ html(lang='en')
         script(type='text/javascript', src='/scripts/preview-recent.js')
         script(type='text/javascript', src='/scripts/new-posts.js')
         script(type='text/javascript', src='/scripts/search.js')
+        script(type='text/javascript') window.ctx = !{JSON.stringify(ctx)}
     body
         main
             header
                 .container
                     a(href='/')
-                        img.logo(src='/images/logo.svg', width='173px', height='40px')
+                        img.logo(src='/images/logo.svg', width='173', height='40')
                     a(href='update.php')
-                        img.update(src='images/update.svg', width='30px', height='30px')
+                        img.update(src='images/update.svg', width='30', height='30')
                     input.search(type='text', placeholder='Search')
             .thumbs.container
                 each user in users
-                    .thumb(data-user='user.username')
+                    .thumb(data-user=user.username)
                         .profile-pic
                             a(target='_blank', href=user.profile_url)
                                 img.profile-pic-img(src=user.profile_pic_url, alt=user.username)
                             a(target='_blank', href=user.profile_pic_zoom_url)
-                                img.zoom-in-img(src='/images/zoom-in.svg', width='20px', height='20px')
+                                img.zoom-in-img(src='/images/zoom-in.svg', width='20', height='20')
                         .opt
                             ul
                                 li
@@ -42,7 +43,10 @@ html(lang='en')
                                 li
                                     a(href='#remove') Remove
                         p.username
-                            a(href=user.profile_url, target="_blank") @ #{user.username}
+                            a(href=user.profile_url, target="_blank") @#{user.username}
                         p.posts-count #{user.media.count} posts
                         p.name #{user.name}
                         p.bio #{user.biography}
+                        .media-json(data-media=JSON.stringify(user.media), hidden)
+                        if !user.is_private
+                            .show-posts
