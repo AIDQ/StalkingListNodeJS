@@ -3,26 +3,28 @@ $(function() {
         function highlight(thumb) {
             $(thumb).addClass('new');
         }
+
         function clear(thumb) {
             $(thumb).removeClass('new');
         }
+
         function updateStorage(i) {
-            var saved_posts_count = JSON.parse(localStorage.posts_count);
-            saved_posts_count[i] = window.ctx.current_posts_count[i];
-            localStorage.posts_count = JSON.stringify(saved_posts_count);
+            var savedPostsCount = JSON.parse(localStorage.postsCount);
+            savedPostsCount[i] = window.ctx.currentPostsCount[i];
+            localStorage.postsCount = JSON.stringify(savedPostsCount);
         }
 
-        if (localStorage.posts_count) {
-            var saved_posts_count = JSON.parse(localStorage.posts_count);
+        if (localStorage.postsCount) {
+            var savedPostsCount = JSON.parse(localStorage.postsCount);
             $('.thumb').each(function(i, thumb) {
-                if (window.ctx.current_posts_count[i] > saved_posts_count[i]) {
+                if (window.ctx.currentPostsCount[i] > savedPostsCount[i]) {
                     highlight(thumb);
-                } else if (window.ctx.current_posts_count[i] < saved_posts_count[i]) {
+                } else if (window.ctx.currentPostsCount[i] < savedPostsCount[i]) {
                     updateStorage(i);
                 }
             });
         } else {
-            localStorage.posts_count = JSON.stringify(window.ctx.current_posts_count);
+            localStorage.postsCount = JSON.stringify(window.ctx.currentPostsCount);
         }
 
         $('.thumb').on('click', function() {

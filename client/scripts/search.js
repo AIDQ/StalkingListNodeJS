@@ -1,6 +1,6 @@
 $(function() {
     $('.thumbs').append(
-        '<p class="add-person" style="display: none;"></p>'
+        '<p class="add-person" style="display:none"></p>'
     );
 
     var $searchBox = $('.search');
@@ -33,7 +33,7 @@ $(function() {
             if (!fullNameMatch) {
                 $('.add-person').show().html(
                     'User <b>' + input + '</b> not found.<br>' +
-                    '<a href="add.php?username=' + input + '">Add <b>' + input + '</b></a>'
+                    '<a href="add?username=' + input + '">Add <b>' + input + '</b></a>'
                 );
             } else {
                 $('.add-person').hide();

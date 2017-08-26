@@ -61,4 +61,4 @@ typings/
 .vscode
 
 # Project specific
-/data/list.json
+/data/

@@ -16,7 +16,7 @@ var popUp = {
         $('.overlay').after(
             '<div class="pop-up dialog">' +
             '<p>Are you sure you want to remove<br><b>' + username + '?</b></p>' +
-            '<a class="yes" href="edit.php?index=' + index + '">Yes</a>' +
+            '<a class="yes" href="/delete?username=' + username + '">Yes</a>' +
             '<a class="no" href="#">No</a>' +
             '</div>'
         );
@@ -43,8 +43,9 @@ var popUp = {
             $(this).remove();
         });
         this.opened = false;
-    }
+    },
 };
+
 // editForm object
 var editForm = {
     opened: null, // .thumb
@@ -52,26 +53,28 @@ var editForm = {
         this.opened = $this.parents('.thumb');
         this.opened.addClass('edit');
         this.opened.children('.username').after(
-            '<form action="edit.php" method="GET">' +
-            '<input type="hidden" name="index" value="' + index + '">' +
-            '<input type="text" name="new" autocomplete="off">' +
+            '<form action="/edit" method="GET">' +
+            '<input type="hidden" name="username" value="' + username + '">' +
+            '<input type="text" name="newUsername" autocomplete="off">' +
             '<input type="submit" value="&#10003;">' +
             '</form>'
         );
-        var nameInput = this.opened.find('input[name=new]');
+        var nameInput = this.opened.find('input[name=newUsername]');
         nameInput.focus();
         nameInput.val(username);
         this.opened.children('form').on('submit', function(e) {
-            if (!nameInput.val()) {
+            if (!nameInput.val() || nameInput.val() === username) {
                 e.preventDefault();
+                editForm.close();
             }
         });
     },
     close: function() {
         this.opened.removeClass('edit');
         this.opened.children('form').remove();
-    }
+    },
 };
+
 // Thumb options object
 var options = {
     opened: null, // .thumb .opt
@@ -82,7 +85,7 @@ var options = {
     close: function() {
         this.opened.children().hide();
         this.opened.removeClass('opened');
-    }
+    },
 };
 
 $(function() {
@@ -113,14 +116,14 @@ $(function() {
         e.preventDefault();
     });
 
-    // recent posts
+    // Recent posts
     $('.thumb .username a, .thumb .posts').on({
         mouseenter: function() {
             $(this).parents('.thumb').children('.posts').show();
         },
         mouseleave: function() {
             $(this).parents('.thumb').children('.posts').hide(0);
-        }
+        },
     });
 
     // Outside click listener
@@ -136,6 +139,7 @@ $(function() {
             }
         }
     });
+
     $(document).mousedown(function(e) {
         if (editForm.opened != null) {
             if (!editForm.opened.find('input').is(e.target)) {

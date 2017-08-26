@@ -25,16 +25,16 @@ html(lang='en')
                 .container
                     a(href='/')
                         img.logo(src='/images/logo.svg', width='173', height='40')
-                    a(href='update.php')
-                        img.update(src='images/update.svg', width='30', height='30')
+                    a(href='/update')
+                        img.update(src='/images/update.svg', width='30', height='30')
                     input.search(type='text', placeholder='Search')
             .thumbs.container
                 each user in users
                     .thumb(data-user=user.username)
                         .profile-pic
-                            a(target='_blank', href=user.profile_url)
-                                img.profile-pic-img(src=user.profile_pic_url, alt=user.username)
-                            a(target='_blank', href=user.profile_pic_zoom_url)
+                            a(target='_blank', href=user.profileUrl)
+                                img.profile-pic-img(src=user.profilePicUrl)
+                            a(target='_blank', href=user.profilePicZoomUrl)
                                 img.zoom-in-img(src='/images/zoom-in.svg', width='20', height='20')
                         .opt
                             ul
@@ -43,10 +43,10 @@ html(lang='en')
                                 li
                                     a(href='#remove') Remove
                         p.username
-                            a(href=user.profile_url, target="_blank") @#{user.username}
-                        p.posts-count #{user.media.count} posts
+                            a(href=user.profileUrl, target="_blank") @#{user.username}
+                        p.posts-count #{user.media ? user.media.count : 0} posts
                         p.name #{user.name}
                         p.bio #{user.biography}
                         .media-json(data-media=JSON.stringify(user.media), hidden)
-                        if !user.is_private
+                        if user.isPrivate === false
                             .show-posts

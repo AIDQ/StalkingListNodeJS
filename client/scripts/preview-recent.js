@@ -1,18 +1,17 @@
 var recentPosts = {
     open: function(thumb) {
         var nodes = thumb.children('.media-json').data('media').nodes;
-        var content = '';
-        content += '<div class="recent-posts"><span class="arrow-up"></span>';
+        var content = '<div class="recent-posts"><span class="arrow-up"></span>';
         for (var j = 0; j < nodes.length; j += 1) {
             var node = nodes[j];
             content +=
                 '<div class="img-container">' +
                 '<a href="https://www.instagram.com/p/' + node.code + '" target="_blank">' +
-                '<img src="' + node.thumbnail_src + '">' +
+                '<img src="' + node.thumbnailSrc + '">' +
                 '<div class="img-overlay">' +
                 '<span class="img-overlay-text">' +
-                '<span class="overlay-icon likes">' + node.likes_count + '</span>' +
-                '<span class="overlay-icon comments">' + node.comments_count + '</span>' +
+                '<span class="overlay-icon likes">' + node.likesCount + '</span>' +
+                '<span class="overlay-icon comments">' + node.commentsCount + '</span>' +
                 '</span>' +
                 '</div>' +
                 '</a>' +
@@ -23,8 +22,7 @@ var recentPosts = {
         var nextAll = $(thumb).nextAll('.thumb:visible');
         if (nextAll.length === 0) {
             $(thumb).after(content);
-        }
-        else {
+        } else {
             nextAll.each(function(i) {
                 var currOffsetTop = $(this).offset().top;
                 var thumbOffsetTop = thumb.offset().top;
@@ -49,7 +47,7 @@ var recentPosts = {
             $(this).remove();
         });
         $('.previews-open').removeClass('previews-open');
-    }
+    },
 };
 
 $(function() {
