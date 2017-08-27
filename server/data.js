@@ -136,7 +136,7 @@ class UserData {
 
     _save(newUsers) {
         return new Promise((resolve, reject) => {
-            const fileContent = JSON.stringify(newUsers, null, 2);
+            const fileContent = JSON.stringify(newUsers, null, 1);
             fs.writeFile(this._dataFile, fileContent, (err) => {
                 resolve();
             });

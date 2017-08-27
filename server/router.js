@@ -10,12 +10,13 @@ function init(app, data) {
         const username = req.query.username;
 
         data.users.add(username)
-            .then(() => res.redirect('/'))
+            .then(() => res.redirect('/'));
     });
 
     app.get('/update', (req, res) => {
         data.users.update()
-            .then(() => res.redirect('/'));
+            .then(() => res.redirect('/'))
+            .catch(() => res.send('Instagram is down :('));
     });
 
     app.get('/delete', (req, res) => {
@@ -30,7 +31,8 @@ function init(app, data) {
         const newUsername = req.query.newUsername;
 
         data.users.edit(username, newUsername)
-            .then(() => res.redirect('/'));
+            .then(() => res.redirect('/'))
+            .catch(() => res.send('Instagram is down :('));
     });
 }
 

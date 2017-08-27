@@ -13,11 +13,6 @@ html(lang='en')
         link(rel='icon', type='image/png', href='/images/favicon.png')
         link(type='text/css', rel='stylesheet', href='/styles/main.css')
         link(type='text/css', rel='stylesheet', href='/styles/mobile.css')
-        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-        script(type='text/javascript', src='/scripts/options.js')
-        script(type='text/javascript', src='/scripts/preview-recent.js')
-        script(type='text/javascript', src='/scripts/new-posts.js')
-        script(type='text/javascript', src='/scripts/search.js')
     body
         main
             header
@@ -31,7 +26,7 @@ html(lang='en')
                 each user in users
                     .thumb(
                         data-username=user.username,
-                        data-media=JSON.stringify(user.media)
+                        data-media=user.media
                     )
                         .profile-pic
                             a(target='_blank', href=user.profileUrl)
@@ -51,3 +46,8 @@ html(lang='en')
                         p.bio #{user.biography}
                         if user.isPrivate === false
                             .show-posts
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(type='text/javascript', src='/scripts/options.js')
+        script(type='text/javascript', src='/scripts/preview-recent.js')
+        script(type='text/javascript', src='/scripts/new-posts.js')
+        script(type='text/javascript', src='/scripts/search.js')

@@ -1,4 +1,22 @@
-var recentPosts = {
+$(function() {
+    $(window).on('resize', function() {
+        window.recentPosts.close();
+    });
+
+    $('.show-posts').on('click', function() {
+        var thumb = $(this).parents('.thumb');
+        if (thumb.hasClass('previews-open')) {
+            window.recentPosts.close();
+            return;
+        }
+        window.recentPosts.close();
+        thumb.addClass('previews-open');
+        window.recentPosts.open(thumb);
+    });
+});
+
+
+window.recentPosts = {
     open: function(thumb) {
         var nodes = thumb.data('media').nodes;
         var content = '<div class="recent-posts"><span class="arrow-up"></span>';
@@ -49,20 +67,3 @@ var recentPosts = {
         $('.previews-open').removeClass('previews-open');
     },
 };
-
-$(function() {
-    $(window).on('resize', function() {
-        recentPosts.close();
-    });
-
-    $('.show-posts').on('click', function() {
-        var thumb = $(this).parents('.thumb');
-        if (thumb.hasClass('previews-open')) {
-            recentPosts.close();
-            return;
-        }
-        recentPosts.close();
-        thumb.addClass('previews-open');
-        recentPosts.open(thumb);
-    });
-});

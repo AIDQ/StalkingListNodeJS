@@ -1,4 +1,3 @@
-/* globals recentPosts */
 $(function() {
     $('.thumbs').append(
         '<p class="add-person" style="display:none"></p>'
@@ -6,19 +5,22 @@ $(function() {
 
     var $searchBox = $('.search');
     $searchBox.focus();
-    $searchBox.keyup(function() {
-        var input = $searchBox.val().replace(/[^A-Za-z0-9._]/g, '');
-        recentPosts.close();
+    $searchBox.on('keyup', function() {
+        var input = $searchBox.val().trim();
+        window.recentPosts.close();
         if (input) {
             $('.thumb').hide();
             window.scrollTo(0, 0);
 
-            var fullNameMatch = false;
+            var fullUsernameMatch = false;
             $('.thumb').filter(function() {
+                var matchRegex = new RegExp(input, 'i');
                 var username = $(this).data('username');
-                if (username.match(new RegExp('^' + input, 'i'))) {
+                var name = $(this).find('.name').html();
+
+                if (username.match(matchRegex) || name.match(matchRegex)) {
                     if (username === input) {
-                        fullNameMatch = true;
+                        fullUsernameMatch = true;
                     }
                     return true;
                 } else {
@@ -28,10 +30,10 @@ $(function() {
 
             if (input === 'new') {
                 $('.thumb.new').show();
-                fullNameMatch = true;
+                fullUsernameMatch = true;
             }
 
-            if (!fullNameMatch) {
+            if (!fullUsernameMatch) {
                 $('.add-person').show().html(
                     'User <b>' + input + '</b> not found.<br>' +
                     '<a href="add?username=' + input + '">Add <b>' + input + '</b></a>'
