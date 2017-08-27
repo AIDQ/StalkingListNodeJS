@@ -1,3 +1,4 @@
+/* globals recentPosts */
 $(function() {
     $('.thumbs').append(
         '<p class="add-person" style="display:none"></p>'
@@ -14,7 +15,7 @@ $(function() {
 
             var fullNameMatch = false;
             $('.thumb').filter(function() {
-                var username = $(this).data('user');
+                var username = $(this).data('username');
                 if (username.match(new RegExp('^' + input, 'i'))) {
                     if (username === input) {
                         fullNameMatch = true;

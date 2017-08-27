@@ -1,6 +1,6 @@
 var recentPosts = {
     open: function(thumb) {
-        var nodes = thumb.children('.media-json').data('media').nodes;
+        var nodes = thumb.data('media').nodes;
         var content = '<div class="recent-posts"><span class="arrow-up"></span>';
         for (var j = 0; j < nodes.length; j += 1) {
             var node = nodes[j];

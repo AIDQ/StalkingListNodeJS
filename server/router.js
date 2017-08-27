@@ -2,15 +2,7 @@ function init(app, data) {
     app.get('/', (req, res) => {
         data.users.getAll()
             .then((users) => {
-                const postsCount = users
-                    .map((u) => u.media ? u.media.count : 0);
-
-                res.render('home', {
-                    users: users,
-                    ctx: {
-                        currentPostsCount: postsCount,
-                    },
-                });
+                res.render('home', { users });
             });
     });
 

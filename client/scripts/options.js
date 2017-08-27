@@ -1,3 +1,4 @@
+var scrollPosition;
 // popUp object
 var popUp = {
     opened: false,

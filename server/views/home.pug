@@ -2,23 +2,22 @@ doctype html
 html(lang='en')
     head
         meta(charset='UTF-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')
         meta(name='theme-color', content='#fff')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(property='og:url', content='')
+        meta(property='og:image', content='')
+        meta(property='og:type', content='website')
         meta(property='og:title', content='InstagramStalk')
         meta(property='og:description', content='InstagramStalk')
-        meta(property='og:type', content='website')
-        meta(property='og:url', content='http://www.instagramstalk.tk')
-        meta(property='og:image', content='http://www.instagramstalk.tk/images/og-image.jpg')
         title InstagramStalk
         link(rel='icon', type='image/png', href='/images/favicon.png')
         link(type='text/css', rel='stylesheet', href='/styles/main.css')
         link(type='text/css', rel='stylesheet', href='/styles/mobile.css')
-        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(type='text/javascript', src='/scripts/options.js')
         script(type='text/javascript', src='/scripts/preview-recent.js')
         script(type='text/javascript', src='/scripts/new-posts.js')
         script(type='text/javascript', src='/scripts/search.js')
-        script(type='text/javascript') window.ctx = !{JSON.stringify(ctx)}
     body
         main
             header
@@ -30,7 +29,10 @@ html(lang='en')
                     input.search(type='text', placeholder='Search')
             .thumbs.container
                 each user in users
-                    .thumb(data-user=user.username)
+                    .thumb(
+                        data-username=user.username,
+                        data-media=JSON.stringify(user.media)
+                    )
                         .profile-pic
                             a(target='_blank', href=user.profileUrl)
                                 img.profile-pic-img(src=user.profilePicUrl)
@@ -47,6 +49,5 @@ html(lang='en')
                         p.posts-count #{user.media ? user.media.count : 0} posts
                         p.name #{user.name}
                         p.bio #{user.biography}
-                        .media-json(data-media=JSON.stringify(user.media), hidden)
                         if user.isPrivate === false
                             .show-posts

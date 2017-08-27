@@ -9,5 +9,8 @@
     },
     "rules": {
         "no-var": "off"
+    },
+    "globals": {
+        "$": false
     }
 }

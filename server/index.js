@@ -1,8 +1,8 @@
-const config = require('./server/config');
+const config = require('./config');
 
 Promise.resolve()
-    .then(() => require('./server/data')(config.dataFile))
-    .then((data) => require('./server/app')(data))
+    .then(() => require('./data')(config.dataFile))
+    .then((data) => require('./app')(data))
     .then((app) => {
         app.listen(config.port, () =>
             console.log(`Server running at port ${config.port}...`)
