@@ -36,7 +36,10 @@ $(function() {
             if (!fullUsernameMatch) {
                 $('.add-person').show().html(
                     'User <b>' + input + '</b> not found.<br>' +
-                    '<a href="add?username=' + input + '">Add <b>' + input + '</b></a>'
+                    '<a href="add?username=' + input +
+                    '">Add <b>' +
+                    input +
+                    '</b></a>'
                 );
             } else {
                 $('.add-person').hide();

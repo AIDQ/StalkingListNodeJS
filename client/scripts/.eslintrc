@@ -11,6 +11,7 @@
         "no-var": "off"
     },
     "globals": {
-        "$": false
+        "$": false,
+        "Mustache": false
     }
 }

@@ -19,46 +19,36 @@ $(function() {
 window.recentPosts = {
     open: function(thumb) {
         var nodes = thumb.data('media').nodes;
-        var content = '<div class="recent-posts"><span class="arrow-up"></span>';
-        for (var j = 0; j < nodes.length; j += 1) {
-            var node = nodes[j];
-            content +=
-                '<div class="img-container">' +
-                '<a href="https://www.instagram.com/p/' + node.code + '" target="_blank">' +
-                '<img src="' + node.thumbnailSrc + '">' +
-                '<div class="img-overlay">' +
-                '<span class="img-overlay-text">' +
-                '<span class="overlay-icon likes">' + node.likesCount + '</span>' +
-                '<span class="overlay-icon comments">' + node.commentsCount + '</span>' +
-                '</span>' +
-                '</div>' +
-                '</a>' +
-                '</div>';
-        }
-        content += '</div>';
+        $.get('/templates/preview-recent.mustache')
+            .then(function(template) {
+                var rendered = Mustache.render(template, {
+                    nodes: nodes,
+                });
 
-        var nextAll = $(thumb).nextAll('.thumb:visible');
-        if (nextAll.length === 0) {
-            $(thumb).after(content);
-        } else {
-            nextAll.each(function(i) {
-                var currOffsetTop = $(this).offset().top;
-                var thumbOffsetTop = thumb.offset().top;
-                if (currOffsetTop > thumbOffsetTop) {
-                    $(this).before(content);
-                } else if (i === nextAll.length - 1) {
-                    $(this).after(content);
+                var nextAll = $(thumb).nextAll('.thumb:visible');
+                if (nextAll.length === 0) {
+                    $(thumb).after(rendered);
                 } else {
-                    return true;
+                    nextAll.each(function(i) {
+                        var currOffsetTop = $(this).offset().top;
+                        var thumbOffsetTop = thumb.offset().top;
+                        if (currOffsetTop > thumbOffsetTop) {
+                            $(this).before(rendered);
+                        } else if (i === nextAll.length - 1) {
+                            $(this).after(rendered);
+                        } else {
+                            return true;
+                        }
+                        return false;
+                    });
                 }
-                return false;
+                $('.recent-posts').delay(25).slideDown(100, function() {
+                    var arrowPostion = thumb.offset().left -
+                        $(this).offset().left +
+                        (thumb.outerWidth() / 2);
+                    $('.arrow-up').css('left', arrowPostion - 10);
+                });
             });
-        }
-        $('.recent-posts').delay(25).slideDown(100, function() {
-            $('.arrow-up').css(
-                'left', thumb.offset().left - $(this).offset().left + thumb.outerWidth() / 2 - 10
-            );
-        });
     },
     close: function() {
         $('.recent-posts').slideUp(75, function() {

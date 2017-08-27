@@ -144,10 +144,8 @@ class UserData {
     }
 
     _mapDetails(users) {
-        const igBaseUrl = 'https://www.instagram.com/_u/';
-
         return users.map((u) => {
-            u.profileUrl = igBaseUrl + u.username;
+            u.profileUrl = `https://www.instagram.com/_u/${u.username}`;
             if (u.profilePicUrl) {
                 u.profilePicZoomUrl = u.profilePicUrl
                     .replace('/s150x150/', '/');

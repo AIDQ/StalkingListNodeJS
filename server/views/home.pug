@@ -46,7 +46,14 @@ html(lang='en')
                         p.bio #{user.biography}
                         if user.isPrivate === false
                             .show-posts
-        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        .overlay(style='display:none')
+            div &times
+
+        // scripts
+        script(type='text/javascript', src='/node_modules/jquery/dist/jquery.min.js')
+        script(type='text/javascript', src='/node_modules/mustache/mustache.min.js')
+        script(type='text/javascript', src='/scripts/edit-form.js')
+        script(type='text/javascript', src='/scripts/pop-up.js')
         script(type='text/javascript', src='/scripts/options.js')
         script(type='text/javascript', src='/scripts/preview-recent.js')
         script(type='text/javascript', src='/scripts/new-posts.js')

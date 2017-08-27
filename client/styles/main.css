@@ -16,7 +16,7 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-[hidden] { 
+[hidden] {
 	display: none;
 }
 
@@ -81,7 +81,7 @@ header {
 			display: block;
 		}
 		.thumb.edit > .opt {
-			display: none;	
+			display: none;
 		}
 		.thumb.edit > .username {
 			display: none;
@@ -203,7 +203,6 @@ header {
 			background: #673AB7;
 			color: #fff;
 			border: none;
-			margin-left: 5px;
 			border-radius: 13px;
 			cursor: pointer;
 		}

@@ -7,7 +7,8 @@ $(function() {
             $('.thumb').each(function(i, el) {
                 var username = $(el).data('username');
 
-                if (window.currentPostsCount[username] > savedPostsCount[username]) {
+                if (window.currentPostsCount[username] >
+                    savedPostsCount[username]) {
                     highlight(el);
                 } else {
                     updateStorage(username);

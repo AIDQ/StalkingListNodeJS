@@ -1,0 +1,16 @@
+<div class="recent-posts">
+    <span class="arrow-up"></span>
+    {{#nodes}}
+        <div class="img-container">
+            <a href="https://www.instagram.com/p/{{code}}" target="_blank">
+        <img src="{{thumbnailSrc}}">
+        <div class="img-overlay">
+        <span class="img-overlay-text">
+        <span class="overlay-icon likes">{{likesCount}}</span>
+        <span class="overlay-icon comments">{{commentsCount}}</span>
+        </span>
+        </div>
+        </a>
+        </div>
+    {{/nodes}}
+</div>

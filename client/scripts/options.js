@@ -1,3 +1,15 @@
+window.options = {
+    opened: null,
+    toggleOpen: function() {
+        this.opened.children().toggle();
+        this.opened.toggleClass('opened');
+    },
+    close: function() {
+        this.opened.children().hide();
+        this.opened.removeClass('opened');
+    },
+};
+
 $(function() {
     // Thumb options action
     $('.opt').on('click', function() {
@@ -5,15 +17,17 @@ $(function() {
         window.options.toggleOpen();
     });
     $('.thumb .opt a').on('click', function(e) {
-        var $this = $(this);
-        var username = $this.parents('.thumb').data('username');
+        var $link = $(this);
+        var $thumb = $link.parents('.thumb');
+        var username = $thumb.data('username');
+
         window.options.toggleOpen();
 
-        if ($this.attr('href') === '#edit') {
-            window.editForm.open(username, $this);
+        if ($link.attr('href') === '#edit') {
+            window.editForm.open(username, $thumb);
             e.preventDefault();
         }
-        if ($this.attr('href') === '#remove') {
+        if ($link.attr('href') === '#remove') {
             window.popUp.openDialog(username);
             e.preventDefault();
         }
@@ -73,93 +87,3 @@ $(function() {
         }
     });
 });
-
-// popUp object
-window.popUp = {
-    opened: false,
-    overlay: function() {
-        this.opened = true;
-        $('main').addClass('blur');
-        $('main').after('<div class="overlay"><div>&times</div></div>');
-        window.scrollPosition = $('body').scrollTop();
-        $('.overlay').fadeIn(250, function() {
-            $('body').addClass('no-scroll');
-            $('body').css('top', -window.scrollPosition);
-        });
-    },
-    openDialog: function(username) {
-        this.overlay();
-        $('.overlay').after(
-            '<div class="pop-up dialog">' +
-            '<p>Are you sure you want to remove<br><b>' + username + '?</b></p>' +
-            '<a class="yes" href="/delete?username=' + username + '">Yes</a>' +
-            '<a class="no" href="#">No</a>' +
-            '</div>'
-        );
-        $('.pop-up').fadeIn(250);
-        $('.pop-up a.no').on('click', function(e) {
-            window.popUp.close();
-            e.preventDefault();
-        });
-    },
-    openImage: function(imgurl) {
-        this.overlay();
-        $('.overlay').after('<img class="pop-up image" src="' + imgurl + '">');
-        $('.pop-up').fadeIn(250);
-    },
-    close: function() {
-        $('body').removeClass('no-scroll');
-        $('body').removeAttr('style');
-        $('body').scrollTop(window.scrollPosition);
-        $('main').removeClass('blur');
-        $('.overlay').fadeOut(250, function() {
-            $('.overlay').remove();
-        });
-        $('.pop-up').fadeOut(250, function() {
-            $(this).remove();
-        });
-        this.opened = false;
-    },
-};
-
-// editForm object
-window.editForm = {
-    opened: null, // .thumb
-    open: function(username, $this) {
-        this.opened = $this.parents('.thumb');
-        this.opened.addClass('edit');
-        this.opened.children('.username').after(
-            '<form action="/edit" method="GET">' +
-            '<input type="hidden" name="username" value="' + username + '">' +
-            '<input type="text" name="newUsername" autocomplete="off">' +
-            '<input type="submit" value="&#10003;">' +
-            '</form>'
-        );
-        var nameInput = this.opened.find('input[name=newUsername]');
-        nameInput.focus();
-        nameInput.val(username);
-        this.opened.children('form').on('submit', function(e) {
-            if (!nameInput.val() || nameInput.val() === username) {
-                e.preventDefault();
-                window.editForm.close();
-            }
-        });
-    },
-    close: function() {
-        this.opened.removeClass('edit');
-        this.opened.children('form').remove();
-    },
-};
-
-// Thumb options object
-window.options = {
-    opened: null, // .thumb .opt
-    toggleOpen: function() {
-        this.opened.children().toggle();
-        this.opened.toggleClass('opened');
-    },
-    close: function() {
-        this.opened.children().hide();
-        this.opened.removeClass('opened');
-    },
-};
