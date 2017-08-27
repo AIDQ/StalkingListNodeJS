@@ -19,6 +19,12 @@ $(function() {
 window.recentPosts = {
     open: function(thumb) {
         var nodes = thumb.data('media').nodes;
+        nodes.map(function(n) {
+            n.likesCount = n.likesCount.toLocaleString();
+            n.commentsCount = n.commentsCount.toLocaleString();
+            return n;
+        });
+
         $.get('/templates/preview-recent.mustache')
             .then(function(template) {
                 var rendered = Mustache.render(template, {
