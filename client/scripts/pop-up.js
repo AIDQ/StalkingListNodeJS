@@ -6,7 +6,6 @@ window.popUp = {
         $('.overlay').show();
         window.scrollPosition = $('body').scrollTop();
         $('.overlay').fadeIn(250, function() {
-            $('body').addClass('no-scroll');
             $('body').css('top', -window.scrollPosition);
         });
     },
@@ -32,7 +31,6 @@ window.popUp = {
         $('.pop-up').fadeIn(250);
     },
     close: function() {
-        $('body').removeClass('no-scroll');
         $('body').removeAttr('style');
         $('body').scrollTop(window.scrollPosition);
         $('main').removeClass('blur');

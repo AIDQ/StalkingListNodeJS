@@ -318,11 +318,6 @@ header {
 				background: #4B248E;
 			}
 
-body.no-scroll {
-	position: fixed;
-	overflow: hidden;
-	width: 100%;
-}
 main {
 	transition: all linear .2s;
 }
