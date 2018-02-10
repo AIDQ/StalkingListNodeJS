@@ -146,9 +146,9 @@ class UserData {
     _mapDetails(users) {
         return users.map((u) => {
             u.profileUrl = `https://www.instagram.com/_u/${u.username}`;
-            if (u.profilePicUrl) {
+            if (u.profilePicUrl && /s\d+x\d+/.test(u.profilePicUrl)) {
                 u.profilePicZoomUrl = u.profilePicUrl
-                    .replace(/(http[s]?:\/\/[^\/]+)\/vp\/.+\/.+\/(.+)\/s\d+x\d+\/(.+)/, '$1/$2/$3');
+                    .replace(/(http[s]?:\/\/[^\/]+)\/.+\/(t[^\/]+)\/s[^\/]+\/(.+)/, '$1/$2/$3');
             }
             return u;
         });
