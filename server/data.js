@@ -148,7 +148,7 @@ class UserData {
             u.profileUrl = `https://www.instagram.com/_u/${u.username}`;
             if (u.profilePicUrl) {
                 u.profilePicZoomUrl = u.profilePicUrl
-                    .replace('/s150x150/', '/');
+                    .replace(/(http[s]?:\/\/[^\/]+)\/vp\/.+\/.+\/(.+)\/s\d+x\d+\/(.+)/, '$1/$2/$3');
             }
             return u;
         });
